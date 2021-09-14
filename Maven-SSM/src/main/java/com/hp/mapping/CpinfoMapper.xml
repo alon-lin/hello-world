@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.CpinfoDAO">
+	<select id="allCpinfo" resultType="CpinfoEntity">
+		select * from cpinfo a,cptype b where a.cid=b.cid 
+	</select>
+	
+	<select id="pageCpinfo" resultType="CpinfoEntity">
+		select * from cpinfo a,cptype b where a.cid=b.cid  limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from Cpinfo
+	</select>
+	
+	<insert id="addCpinfo" parameterType="CpinfoEntity">
+		insert into Cpinfo values(null,#{fname},#{cid},#{fdw},#{faddress},#{foutprice},#{finprice},#{fimg},#{fcount});	
+	</insert>
+	
+	<update id="updCpinfo" parameterType="CpinfoEntity">
+		update Cpinfo set fname=#{fname},cid=#{cid},fdw=#{fdw},faddress=#{faddress},foutprice=#{foutprice},finprice=#{finprice},fimg=#{fimg},fcount=#{fcount} where fid=#{fid}	
+	</update>
+	
+	<select id="selCpinfo" parameterType="int" resultType="CpinfoEntity">
+		select * from cpinfo a,cptype b where a.cid=b.cid  and fid=#{fid}
+	</select>
+	
+	<select id="getByName" parameterType="int" resultType="CpinfoEntity">
+		SELECT * ,sum(gcount)-fcount xcount from getcp a,cpinfo b where a.fid=b.fid  and a.fid=#{fid}
+	</select>
+	
+	
+	<select id="getCountMsg" resultType="CpinfoEntity">
+		select * from cpinfo a,cptype b where a.cid=b.cid  and <![CDATA[fcount<=10 ]]>
+	</select>
+	
+	<select id="getMsg" resultType="int">
+		select count(*) from cpinfo where <![CDATA[fcount<=10 ]]>
+	</select>
+	
+</mapper>

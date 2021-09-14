@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.Outcp1DAO">
+	<select id="allOutcp1" resultType="Outcp1Entity">
+		select * from outcp1 a,cpinfo b,cptype c,userinfo d where a.fid=b.fid and a.uid=d.uid and b.cid=c.cid
+	</select>
+	
+	<select id="pageOutcp1" resultType="Outcp1Entity">
+		select * from outcp1 a,cpinfo b,cptype c,userinfo d where a.fid=b.fid and a.uid=d.uid and b.cid=c.cid  limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from Outcp1
+	</select>
+	
+	<insert id="addOutcp1" parameterType="Outcp1Entity">
+		insert into Outcp1 values(null,#{fid},#{wcount},#{wname},#{wtel},#{uid},#{wtime});	
+	</insert>
+	
+	<update id="updOutcp1" parameterType="Outcp1Entity">
+		update Outcp1 set fid=#{fid},wcount=#{wcount},wname=#{wname},wtel=#{wtel},uid=#{uid},wtime=#{wtime} where wid=#{wid}	
+	</update>
+	
+	<select id="selOutcp1" parameterType="int" resultType="Outcp1Entity">
+		select * from  Outcp1 where wid=#{wid}
+	</select>
+	
+	<select id="page" resultType="Outcp1Entity" parameterType="int">
+		select * from outcp1 a,cpinfo b,cptype c,userinfo d where a.fid=b.fid and a.uid=d.uid and b.cid=c.cid and a.fid=#{fid}  limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount1" resultType="int" parameterType="int">
+		select count(*) from Outcp1 where fid=#{fid}
+	</select>
+</mapper>

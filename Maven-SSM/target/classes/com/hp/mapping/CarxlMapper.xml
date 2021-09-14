@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.CarxlDAO">
+	<select id="allCarxl" resultType="CarxlEntity">
+		select * from Carxl a,cartype b where a.aid=b.aid
+	</select>
+	
+	<select id="pageCarxl" resultType="CarxlEntity">
+		select * from Carxl a,cartype b where a.aid=b.aid limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from Carxl
+	</select>
+	
+	<insert id="addCarxl" parameterType="CarxlEntity">
+		insert into Carxl values(null,#{aid},#{xname});	
+	</insert>
+	
+	<update id="updCarxl" parameterType="CarxlEntity">
+		update Carxl set xname=#{xname},aid=#{aid} where xid=#{xid}	
+	</update>
+	
+	<select id="selCarxl" parameterType="int" resultType="CarxlEntity">
+		select * from  Carxl where xid=#{xid}
+	</select>
+</mapper>

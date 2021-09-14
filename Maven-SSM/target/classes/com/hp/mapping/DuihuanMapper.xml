@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.DuihuanDAO">
+	<select id="allDuihuan" resultType="DuihuanEntity">
+		select * from Duihuan a,lipin b,member c,userinfo d where a.nid=b.nid and a.rid=c.rid and a.uid=d.uid
+	</select>
+	
+	<select id="pageDuihuan" resultType="DuihuanEntity">
+		select * from Duihuan a,lipin b,member c,userinfo d where a.nid=b.nid and a.rid=c.rid and a.uid=d.uid limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from Duihuan
+	</select>
+	
+	<select id="page" resultType="DuihuanEntity">
+		select * from Duihuan a,lipin b,member c,userinfo d where a.nid=b.nid and a.rid=c.rid and a.uid=d.uid and a.nid=#{nid} limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount1" resultType="int">
+		select count(*) from Duihuan where nid=#{nid}
+	</select>
+	
+	<insert id="addDuihuan" parameterType="DuihuanEntity">
+		insert into Duihuan values(null,#{nid},#{rid},#{hcount},#{htime},#{uid});	
+	</insert>
+	
+	<update id="updDuihuan" parameterType="DuihuanEntity">
+		update Duihuan set nid=#{nid},rid=#{rid},hcount=#{hcount},htime=#{htime},uid=#{uid} where hid=#{hid}	
+	</update>
+	
+	<select id="selDuihuan" parameterType="int" resultType="DuihuanEntity">
+		select * from  Duihuan where hid=#{hid}
+	</select>
+	
+	<select id="getByName"  resultType="DuihuanEntity">
+		select *,SUM(hcount) count from Duihuan a,lipin b,member c,userinfo d where a.nid=b.nid and a.rid=c.rid and a.uid=d.uid GROUP BY a.nid
+	</select>
+</mapper>

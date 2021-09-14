@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.MemberDAO">
+	<select id="allMember" resultType="MemberEntity">
+		select * from Member a,dj
+		b,carxl c,pz d,cartype e where a.did=b.did and a.xid=c.xid and
+		a.zid=d.zid and c.aid=e.aid
+	</select>
+
+	<select id="pageMember" resultType="MemberEntity">
+		select * from Member a,dj
+		b,carxl c,pz d,cartype e where a.did=b.did and a.xid=c.xid and
+		a.zid=d.zid and c.aid=e.aid limit #{page},#{limit}
+	</select>
+
+	<select id="getCount" resultType="int">
+		select count(*) from Member
+	</select>
+
+	<insert id="addMember" parameterType="MemberEntity">
+		insert into Member
+		values(null,#{rcard},#{rname},#{rpsw},#{rimg},#{rtel},#{rsex},#{did},
+		#{rbirthday},#{rstatus},#{rmoney},#{rjf},#{rcarnum},#{xid},#{rcolor},#{rway},
+		#{zid},#{rnum},#{raddress},#{rremark},#{rtime});
+	</insert>
+
+	<update id="updMember" parameterType="MemberEntity">
+		update Member set
+		rcard=#{rcard},rname=#{rname},rpsw=#{rpsw},rimg=#{rimg},rtel=#{rtel},rsex=#{rsex},did=#{did},
+		rbirthday=#{rbirthday},rstatus=#{rstatus},rjf=#{rjf},rcarnum=#{rcarnum},xid=#{xid},rcolor=#{rcolor},rway=#{rway},
+		zid=#{zid},rnum=#{rnum},raddress=#{raddress},rremark=#{rremark},rtime=#{rtime},rmoney=#{rmoney}
+		where rid=#{rid}
+	</update>
+
+	<select id="selMember" parameterType="int" resultType="MemberEntity">
+		select *
+		from Member a,dj b,carxl c,pz d,cartype e where a.did=b.did and
+		a.xid=c.xid and a.zid=d.zid and c.aid=e.aid and a.rid=#{rid}
+	</select>
+
+	<select id="getRcard" parameterType="String" resultType="MemberEntity">
+		select *
+		from Member a,dj b,carxl c,pz d,cartype e where a.did=b.did and
+		a.xid=c.xid and a.zid=d.zid and c.aid=e.aid and a.rcard=#{rcard}
+	</select>
+
+	<select id="group" resultType="MemberEntity">
+		select a.did,dname,count(*) count
+		from member a,dj b where a.did=b.did GROUP BY a.did
+	</select>
+
+	<select id="getByDid" parameterType="int" resultType="MemberEntity">
+		select *
+		from member a,dj b where a.did=b.did and a.did=#{did}
+	</select>
+
+	<select id="getCount1" resultType="int" parameterType="int">
+		select
+		count(*) from member where did=#{did}
+	</select>
+
+	<!-- 大于 -->
+	<select id="getRjf" parameterType="MemberEntity" resultType="MemberEntity">
+		select * from member where 1=1
+			<if test="onejf!=0">
+				<![CDATA[AND rjf >=#{onejf} ]]>
+			</if>
+			<if test="twojf!=0">
+				<![CDATA[AND rjf <=#{twojf} ]]>
+			</if>
+			<if test="threejf!=0">
+				<![CDATA[AND rjf <=#{threejf} ]]>
+			</if>
+			
+	</select>
+	
+	<select id="getCouRjf" parameterType="MemberEntity" resultType="int">
+		select count(*) from member where 1=1
+			<if test="onejf!=0">
+				<![CDATA[AND rjf >=#{onejf} ]]>
+			</if>
+			<if test="twojf!=0">
+				<![CDATA[AND rjf <=#{twojf} ]]>
+			</if>
+			<if test="threejf!=0">
+				<![CDATA[AND rjf <=#{threejf} ]]>
+			</if>
+			
+	</select>
+	
+	<select id="getCouTwo" parameterType="MemberEntity" resultType="int">
+		select count(*) from member where 1=1
+			<if test="onejf!=0">
+				<![CDATA[AND rjf <#{onejf} ]]>
+			</if>
+			<if test="twojf!=0">
+				<![CDATA[AND rjf >#{twojf} ]]>
+			</if>
+			<if test="threejf!=0">
+				<![CDATA[AND rjf >#{threejf} ]]>
+			</if>
+	</select>
+	
+	<select id="getCouOt" parameterType="MemberEntity" resultType="int">
+		select count(*) from member where 1=1
+		<if test="twojf!=0">
+				<![CDATA[AND rjf >#{twojf} ]]>
+			</if>
+			<if test="threejf!=0">
+				<![CDATA[AND rjf <#{threejf} ]]>
+			</if>
+	</select>
+	
+	
+	
+	<!-- 小于 -->
+	<select id="getTwo" parameterType="MemberEntity" resultType="MemberEntity">
+		select * from member where 1=1
+			<if test="onejf!=0">
+				<![CDATA[AND rjf <#{onejf} ]]>
+			</if>
+			<if test="twojf!=0">
+				<![CDATA[AND rjf >#{twojf} ]]>
+			</if>
+			<if test="threejf!=0">
+				<![CDATA[AND rjf >#{threejf} ]]>
+			</if>
+	</select>
+	
+	<select id="getOt" parameterType="MemberEntity" resultType="MemberEntity">
+		select * from member where 1=1
+		<if test="twojf!=0">
+				<![CDATA[AND rjf >#{twojf} ]]>
+			</if>
+			<if test="threejf!=0">
+				<![CDATA[AND rjf <#{threejf} ]]>
+			</if>
+	</select>
+</mapper>

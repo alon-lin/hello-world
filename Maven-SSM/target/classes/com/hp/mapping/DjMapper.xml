@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.DjDAO">
+	<select id="allDj" resultType="DjEntity">
+		select * from dj
+	</select>
+	
+	<select id="pageDj" resultType="DjEntity">
+		select * from dj limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from dj
+	</select>
+	
+	<insert id="addDj" parameterType="DjEntity">
+		insert into dj values(null,#{dname},#{djf},#{dmoneyBl},#{dzk});	
+	</insert>
+	
+	<update id="updDj" parameterType="DjEntity">
+		update dj set dname=#{dname},djf=#{djf},dmoneyBl=#{dmoneyBl},dzk=#{dzk} where did=#{did}	
+	</update>
+	
+	<select id="selDj" parameterType="int" resultType="DjEntity">
+		select * from  dj where did=#{did}
+	</select>
+	
+	<select id="getCheckName" parameterType="String" resultType="int">
+		select count(*) from  dj where dname=#{dname}
+	</select>
+</mapper>

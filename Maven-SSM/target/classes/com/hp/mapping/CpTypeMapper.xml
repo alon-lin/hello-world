@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.CpTypeDAO">
+	<select id="allCptype" resultType="CptypeEntity">
+		select * from Cptype
+	</select>
+	
+	<select id="pageCptype" resultType="CptypeEntity">
+		select * from Cptype limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from Cptype
+	</select>
+	
+	<insert id="addCptype" parameterType="CptypeEntity">
+		insert into Cptype values(null,#{cname});	
+	</insert>
+	
+	<update id="updCptype" parameterType="CptypeEntity">
+		update Cptype set cname=#{cname} where cid=#{cid}	
+	</update>
+	
+	<select id="selCptype" parameterType="int" resultType="CptypeEntity">
+		select * from  Cptype where cid=#{cid}
+	</select>
+</mapper>

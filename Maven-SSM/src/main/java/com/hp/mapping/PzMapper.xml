@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.PzDAO">
+	<select id="allPz" resultType="PzEntity">
+		select * from Pz
+	</select>
+	
+	<select id="pagePz" resultType="PzEntity">
+		select * from Pz limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from Pz
+	</select>
+	
+	<insert id="addPz" parameterType="PzEntity">
+		insert into Pz values(null,#{zname});	
+	</insert>
+	
+	<update id="updPz" parameterType="PzEntity">
+		update Pz set zname=#{zname} where zid=#{zid}	
+	</update>
+	
+	<select id="selPz" parameterType="int" resultType="PzEntity">
+		select * from  Pz where zid=#{zid}
+	</select>
+</mapper>

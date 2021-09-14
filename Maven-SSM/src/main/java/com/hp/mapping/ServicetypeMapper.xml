@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.ServiceTypeDAO">
+	<select id="allServiceType" resultType="ServicetypeEntity">
+		select * from Servicetype
+	</select>
+	
+	<select id="pageServiceType" resultType="ServicetypeEntity">
+		select * from Servicetype limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from Servicetype
+	</select>
+	
+	<insert id="addServiceType" parameterType="ServicetypeEntity">
+		insert into Servicetype values(null,#{sname});	
+	</insert>
+	
+	<update id="updServiceType" parameterType="ServicetypeEntity">
+		update Servicetype set sname=#{sname} where sid=#{sid}	
+	</update>
+	
+	<select id="selServiceType" parameterType="int" resultType="ServicetypeEntity">
+		select * from  Servicetype where sid=#{sid}
+	</select>
+</mapper>

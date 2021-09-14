@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.LipinDAO">
+	<select id="allLipin" resultType="LipinEntity">
+		select * from Lipin
+	</select>
+	
+	<select id="pageLipin" resultType="LipinEntity">
+		select * from Lipin limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from Lipin
+	</select>
+	
+	<insert id="addLipin" parameterType="LipinEntity">
+		insert into Lipin values(null,#{nname},#{nimg},#{njf},#{ncount},#{nncount});	
+	</insert>
+	
+	<update id="updLipin" parameterType="LipinEntity">
+		update Lipin set nname=#{nname},nimg=#{nimg},njf=#{njf},ncount=#{ncount},nncount=#{nncount} where nid=#{nid}	
+	</update>
+	
+	<select id="selLipin" parameterType="int" resultType="LipinEntity">
+		select * from  Lipin where nid=#{nid}
+	</select>
+</mapper>

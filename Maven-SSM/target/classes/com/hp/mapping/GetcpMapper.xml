@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.GetcpDAO">
+	<select id="allGetcp" resultType="GetcpEntity">
+		select * from Getcp a,cpinfo b,userinfo c where a.fid=b.fid and a.uid=c.uid
+	</select>
+	
+	<select id="pageGetcp" resultType="GetcpEntity">
+		select * from Getcp a,cpinfo b,userinfo c where a.fid=b.fid and a.uid=c.uid limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from Getcp
+	</select>
+	
+	<insert id="addGetcp" parameterType="GetcpEntity">
+		insert into Getcp values(null,#{fid},#{gcount},#{gtime},#{uid});	
+	</insert>
+	
+	<update id="updGetcp" parameterType="GetcpEntity">
+		update Getcp set fid=#{fid},gcount=#{gcount},gtime=#{gtime},uid=#{uid} where gid=#{gid}	
+	</update>
+	
+	<select id="selGetcp" parameterType="int" resultType="GetcpEntity">
+		select * from  Getcp where gid=#{gid}
+	</select>
+	
+	<select id="selAll" parameterType="int" resultType="GetcpEntity">
+		select * from Getcp a,cpinfo b,userinfo c where a.fid=b.fid and a.uid=c.uid and a.fid=#{fid}
+	</select>
+	
+	<select id="getCount1" parameterType="int" resultType="int">
+		select count(*) from Getcp where fid=#{fid}
+	</select>
+</mapper>

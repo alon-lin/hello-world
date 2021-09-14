@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.YouhuiDAO">
+	<select id="allYouhui" resultType="YouhuiEntity">
+		select * from Youhui
+	</select>
+	
+	<select id="pageYouhui" resultType="YouhuiEntity">
+		select * from Youhui limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from Youhui
+	</select>
+	
+	<insert id="addYouhui" parameterType="YouhuiEntity">
+		insert into Youhui values(null,#{ytitle},#{ybegintime},#{yendtime},#{ymoney},#{ylessmoney});	
+	</insert>
+	
+	<update id="updYouhui" parameterType="YouhuiEntity">
+		update Youhui set ytitle=#{ytitle},ybegintime=#{ybegintime},yendtime=#{yendtime},ymoney=#{ymoney},ylessmoney=#{ylessmoney} where yid=#{yid}	
+	</update>
+	
+	<select id="selYouhui" parameterType="int" resultType="YouhuiEntity">
+		select * from  Youhui where yid=#{yid}
+	</select>
+</mapper>

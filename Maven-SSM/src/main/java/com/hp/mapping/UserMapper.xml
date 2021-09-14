@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.UserDAO">
+	<!-- 全查询 -->
+	<select id="allUser" resultType="UserEntity">
+		select * from userinfo
+	</select>
+	<!-- 分页查询 -->
+	<select id="pageUser" parameterType="UserEntity" resultType="UserEntity">
+		select * from userinfo limit #{page},#{limit}
+	</select>
+	<!-- //统计总数 -->
+	<select id="getCount" resultType="int">
+		select count(*) from userinfo
+	</select>
+	<!-- //添加 -->
+	<insert id="addUser" parameterType="UserEntity">
+		insert into userinfo values(null,#{uname},#{upsw},#{urealname},#{utel},#{usex});
+	</insert>
+	<!-- 修改 -->
+	<update id="updUser" parameterType="UserEntity">
+		update userinfo set uname=#{uname},upsw=#{upsw},urealname=#{urealname},utel=#{utel},usex=#{usex} where uid=#{uid};
+	</update>
+	<!-- //登录 -->
+	<select id="userLogin" parameterType="UserEntity" resultType="int">
+		select count(*) from userinfo where uname=#{uname} and upsw=#{upsw}
+	</select>
+	<!-- 登录查询信息 -->
+	<select id="getUser" resultType="UserEntity" parameterType="UserEntity">
+		select * from userinfo where uname=#{uname} and upsw=#{upsw}
+	</select>
+	
+	<!-- 判断用户名是否有效 -->
+	<select id="getCheckName" parameterType="UserEntity" resultType="int">
+		select count(*) from userinfo where uname=#{uname}
+	</select>
+	
+	<select id="selUser" parameterType="int" resultType="UserEntity">
+		select * from userinfo where uid=#{uid} 
+	</select>
+</mapper>

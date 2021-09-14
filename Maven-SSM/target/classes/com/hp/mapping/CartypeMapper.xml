@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hp.dao.CartypeDAO">
+	<select id="allCartype" resultType="CartypeEntity">
+		select * from Cartype
+	</select>
+	
+	<select id="pageCartype" resultType="CartypeEntity">
+		select * from Cartype limit #{page},#{limit}
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from Cartype
+	</select>
+	
+	<insert id="addCartype" parameterType="CartypeEntity">
+		insert into Cartype values(null,#{aname});	
+	</insert>
+	
+	<update id="updCartype" parameterType="CartypeEntity">
+		update Cartype set aname=#{aname} where aid=#{aid}	
+	</update>
+	
+	<select id="selCartype" parameterType="int" resultType="CartypeEntity">
+		select * from  Cartype where aid=#{aid}
+	</select>
+</mapper>
